@@ -33,6 +33,11 @@
     .header-inner {
       max-width: 1080px;
       margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
     header h1 {
       font-size: 1.25rem;
@@ -44,6 +49,24 @@
       font-size: 0.8rem;
       opacity: 0.5;
       line-height: 1.6;
+    }
+    .header-date {
+      text-align: right;
+    }
+    .header-date .date-label {
+      font-size: 0.68rem;
+      opacity: 0.45;
+      margin-bottom: 0.2rem;
+    }
+    .header-date .date-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+    .header-date .date-notice {
+      font-size: 0.68rem;
+      opacity: 0.4;
+      margin-top: 0.2rem;
     }
 
     main {
@@ -183,6 +206,8 @@
     @media (max-width: 600px) {
       .site-grid { grid-template-columns: 1fr; }
       .selector-panel { padding: 1rem; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .header-date { text-align: left; }
     }
   </style>
 </head>
@@ -190,8 +215,15 @@
 
 <header>
   <div class="header-inner">
-    <h1>채용공고 링크 모음</h1>
-    <p>직무와 지역을 선택하면 해당 채용사이트 검색 결과로 바로 이동합니다</p>
+    <div>
+      <h1>채용공고 링크 모음</h1>
+      <p>직무와 지역을 선택하면 해당 채용사이트 검색 결과로 바로 이동합니다</p>
+    </div>
+    <div class="header-date">
+      <div class="date-label">오늘 기준</div>
+      <div class="date-value" id="today-date"></div>
+      <div class="date-notice">각 사이트 공고는 실시간 갱신</div>
+    </div>
   </div>
 </header>
 
@@ -220,6 +252,15 @@
 </main>
 
 <script>
+  // 오늘 날짜 표시
+  const today = new Date();
+  const yy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  document.getElementById('today-date').textContent =
+    `${yy}.${mm}.${dd} (${days[today.getDay()]})`;
+
   const REGION_PARAMS = {
     '강남구': { worknet: '101270', jobkorea: 'I010127' },
     '서초구': { worknet: '101280', jobkorea: 'I010128' },
@@ -274,8 +315,12 @@
     {
       id: 'jobplanet', name: '잡플래닛', logoText: 'JP', logoColor: '#00C16E',
       desc: '실제 회사 후기 기반 취업정보',
-      getUrl(k) {
-        return `https://www.jobplanet.co.kr/job/search?q=${encodeURIComponent(k)}`;
+      getUrl(k, r) {
+        const kw = encodeURIComponent(k);
+        // 직군 605 = 디자인, 정렬 최신순
+        const base = `https://www.jobplanet.co.kr/job/search?q=${kw}&occupation_codes=605&sort=updated_at`;
+        const loc = r !== 'all' ? `&location_codes=${encodeURIComponent(r)}` : '';
+        return base + loc;
       },
     },
   ];
