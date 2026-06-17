@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채용공고 링크 모음 | 한지혜</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f4f4f0;
+      --surface: #ffffff;
+      --primary: #111827;
+      --accent: #4338ca;
+      --accent-bg: #eef2ff;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--primary);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2rem 1.5rem 1.875rem;
+    }
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .selector-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .selector-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .selector-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      min-width: 36px;
+    }
+
+    .chip {
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      font-size: 0.8rem;
+      font-family: inherit;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.14s;
+      line-height: 1;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.875rem;
+    }
+
+    .site-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.875rem;
+    }
+
+    .site-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.375rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .site-card:hover {
+      border-color: #c7d2fe;
+      box-shadow: 0 2px 12px rgba(67,56,202,0.07);
+    }
+
+    .site-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    .site-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .site-name { font-size: 0.9rem; font-weight: 700; }
+    .site-desc { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .job-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.875rem;
+      border-radius: 8px;
+      background: var(--bg);
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.13s, color 0.13s;
+      border: 1px solid transparent;
+    }
+    .job-link:hover {
+      background: var(--accent-bg);
+      color: var(--accent);
+      border-color: #c7d2fe;
+    }
+    .job-link .link-arrow { font-size: 0.75rem; opacity: 0.4; }
+    .job-link:hover .link-arrow { opacity: 1; }
+    .job-link.hidden { display: none; }
+
+    @media (max-width: 600px) {
+      .site-grid { grid-template-columns: 1fr; }
+      .selector-panel { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>채용공고 링크 모음</h1>
+    <p>직무와 지역을 선택하면 해당 채용사이트 검색 결과로 바로 이동합니다</p>
+  </div>
+</header>
+
+<main>
+  <div class="selector-panel">
+    <div class="selector-row">
+      <span class="selector-label">직무</span>
+      <button class="chip active" data-group="job" data-value="그래픽디자이너">그래픽디자이너</button>
+      <button class="chip" data-group="job" data-value="브랜드디자이너">브랜드디자이너</button>
+      <button class="chip" data-group="job" data-value="콘텐츠디자이너">콘텐츠디자이너</button>
+    </div>
+    <div class="selector-row">
+      <span class="selector-label">지역</span>
+      <button class="chip active" data-group="region" data-value="all">전체</button>
+      <button class="chip" data-group="region" data-value="강남구">강남구</button>
+      <button class="chip" data-group="region" data-value="서초구">서초구</button>
+      <button class="chip" data-group="region" data-value="성남시">성남시</button>
+      <button class="chip" data-group="region" data-value="기흥구">기흥구</button>
+      <button class="chip" data-group="region" data-value="수지구">수지구</button>
+      <button class="chip" data-group="region" data-value="수원시">수원시</button>
+    </div>
+  </div>
+
+  <div class="section-title">채용 사이트</div>
+  <div class="site-grid" id="site-grid"></div>
+</main>
+
+<script>
+  const REGION_PARAMS = {
+    '강남구': { worknet: '101270', jobkorea: 'I010127' },
+    '서초구': { worknet: '101280', jobkorea: 'I010128' },
+    '성남시': { worknet: '102290', jobkorea: 'I020290' },
+    '기흥구': { worknet: '102313', jobkorea: 'I020313' },
+    '수지구': { worknet: '102315', jobkorea: 'I020315' },
+    '수원시': { worknet: '102090', jobkorea: 'I020310' },
+  };
+
+  const SITES = [
+    {
+      id: 'worknet', name: '워크넷', logoText: 'WN', logoColor: '#1355C1',
+      desc: '고용노동부 공식 취업정보망',
+      getUrl(k, r) {
+        const kw = encodeURIComponent(k);
+        const code = r !== 'all' ? REGION_PARAMS[r]?.worknet : '';
+        return `https://www.work.go.kr/empInfo/empInfoSrch/list/listLogin.do?keywd=${kw}${code ? '&region=' + code : ''}&searchMode=1`;
+      },
+    },
+    {
+      id: 'jobkorea', name: '잡코리아', logoText: 'JK', logoColor: '#FF6600',
+      desc: '국내 최대 채용정보 서비스',
+      getUrl(k, r) {
+        const kw = encodeURIComponent(k);
+        const code = r !== 'all' ? REGION_PARAMS[r]?.jobkorea : 'I010127%7CI010128%7CI020290%7CI020313%7CI020315%7CI020310';
+        return `https://www.jobkorea.co.kr/Search/?stext=${kw}&local=${code}`;
+      },
+    },
+    {
+      id: 'saramin', name: '사람인', logoText: 'SR', logoColor: '#E31B23',
+      desc: '커리어 중심 취업포털',
+      getUrl(k, r) {
+        const kw = encodeURIComponent(k);
+        const loc = r !== 'all' ? `+${encodeURIComponent(r)}` : '';
+        return `https://www.saramin.co.kr/zf_user/search?searchword=${kw}${loc}&search_done=y`;
+      },
+    },
+    {
+      id: 'wanted', name: '원티드', logoText: 'WD', logoColor: '#3366FF',
+      desc: '스타트업 · IT · 디자인 중심',
+      getUrl(k) {
+        return `https://www.wanted.co.kr/search?query=${encodeURIComponent(k)}&country=kr&job_sort=job.latest_order`;
+      },
+    },
+    {
+      id: 'remember', name: '리멤버', logoText: 'RM', logoColor: '#1A1A1A',
+      desc: '비즈니스 네트워크 기반 수시청용',
+      getUrl(k) {
+        return `https://career.rememberapp.co.kr/job/list?keyword=${encodeURIComponent(k)}`;
+      },
+    },
+    {
+      id: 'jobplanet', name: '잡플래닛', logoText: 'JP', logoColor: '#00C16E',
+      desc: '실제 회사 후기 기반 취업정보',
+      getUrl(k) {
+        return `https://www.jobplanet.co.kr/job/search?q=${encodeURIComponent(k)}`;
+      },
+    },
+  ];
+
+  const JOBS = ['그래픽디자이너', '브랜드디자이너', '콘텐츠디자이너'];
+  let activeJob = '그래픽디자이너';
+  let activeRegion = 'all';
+
+  const grid = document.getElementById('site-grid');
+
+  SITES.forEach(site => {
+    const card = document.createElement('div');
+    card.className = 'site-card';
+    card.innerHTML = `
+      <div class="site-card-header">
+        <div class="site-logo" style="background:${site.logoColor}">${site.logoText}</div>
+        <div>
+          <div class="site-name">${site.name}</div>
+          <div class="site-desc">${site.desc}</div>
+        </div>
+      </div>
+      <div class="link-list" id="links-${site.id}"></div>
+    `;
+    grid.appendChild(card);
+  });
+
+  function updateLinks() {
+    SITES.forEach(site => {
+      const container = document.getElementById(`links-${site.id}`);
+      container.innerHTML = '';
+      JOBS.forEach(job => {
+        const url = site.getUrl(job, activeRegion);
+        const regionLabel = activeRegion === 'all' ? '서울/경기' : activeRegion;
+        const a = document.createElement('a');
+        a.className = 'job-link' + (job === activeJob ? '' : ' hidden');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.dataset.job = job;
+        a.innerHTML = `<span>${job} · ${regionLabel}</span><span class="link-arrow">→</span>`;
+        container.appendChild(a);
+      });
+    });
+  }
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const group = chip.dataset.group;
+      const value = chip.dataset.value;
+      document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      if (group === 'job') activeJob = value;
+      else activeRegion = value;
+      SITES.forEach(site => {
+        document.querySelectorAll(`#links-${site.id} .job-link`).forEach(a => {
+          const isActive = a.dataset.job === activeJob;
+          a.classList.toggle('hidden', !isActive);
+          if (isActive) {
+            a.href = site.getUrl(a.dataset.job, activeRegion);
+            const regionLabel = activeRegion === 'all' ? '서울/경기' : activeRegion;
+            a.querySelector('span').textContent = `${a.dataset.job} · ${regionLabel}`;
+          }
+        });
+      });
+    });
+  });
+
+  updateLinks();
+</script>
+
+</body>
+</html>
