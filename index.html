@@ -3,259 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>채용공고 대시보드 | 한지혜</title>
+  <title>채용공고 링크 모음 | 한지혜</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --bg: #f4f4f0;
+      --surface: #ffffff;
       --primary: #111827;
-      --accent: #4f46e5;
-      --accent-light: #eef2ff;
-      --bg: #f5f5f0;
-      --card: #ffffff;
-      --text: #111827;
+      --accent: #4338ca;
+      --accent-bg: #eef2ff;
       --muted: #6b7280;
       --border: #e5e7eb;
-      --danger: #ef4444;
+      --radius: 12px;
     }
 
     body {
-      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--primary);
       min-height: 100vh;
     }
 
-    /* ─── Header ─── */
+    /* ─ Header ──────────────────────────────────── */
     header {
       background: var(--primary);
       color: #fff;
-      padding: 2rem 1.5rem 1.75rem;
+      padding: 2rem 1.5rem 1.875rem;
     }
     .header-inner {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 0.75rem;
     }
-    header h1 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; }
-    header .sub {
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    header p {
       font-size: 0.8rem;
-      opacity: 0.55;
-      margin-top: 0.3rem;
+      opacity: 0.5;
       line-height: 1.6;
     }
-    #last-updated {
-      font-size: 0.75rem;
-      opacity: 0.45;
-      text-align: right;
-      white-space: nowrap;
-    }
 
-    /* ─── Main ─── */
+    /* ─ Main layout ───────────────────────────── */
     main {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2rem 1.5rem 5rem;
     }
 
-    /* ─── Section label ─── */
-    .section-label {
+    /* ─ Selector panel ────────────────────────── */
+    .selector-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .selector-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .selector-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      min-width: 36px;
+    }
+
+    .chip {
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      font-size: 0.8rem;
+      font-family: inherit;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.14s;
+      line-height: 1;
+    }
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ─ Section title ─────────────────────────── */
+    .section-title {
       font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.875rem;
     }
 
-    /* ─── Quick links ─── */
-    .quick-links-grid {
+    /* ─ Site grid ───────────────────────────── */
+    .site-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.625rem;
-      margin-bottom: 2.5rem;
-    }
-    .site-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.875rem 1rem;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .site-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 2px 10px rgba(79,70,229,0.12);
-      transform: translateY(-1px);
-    }
-    .site-card .site-name {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .site-card .site-query {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-    .site-card .arrow {
-      font-size: 0.7rem;
-      color: var(--border);
-      margin-top: 0.25rem;
-    }
-    .site-card:hover .arrow { color: var(--accent); }
-
-    /* ─── Divider ─── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 0 2rem;
-    }
-
-    /* ─── Filter bar ─── */
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.375rem;
-      align-items: center;
-      margin-bottom: 0.625rem;
-    }
-    .filter-row:last-of-type { margin-bottom: 1.25rem; }
-    .filter-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      min-width: 32px;
-    }
-    .filter-btn {
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      border: 1px solid var(--border);
-      background: white;
-      font-size: 0.78rem;
-      font-family: inherit;
-      cursor: pointer;
-      color: var(--text);
-      transition: all 0.15s;
-    }
-    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    /* ─── Results count ─── */
-    .results-meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    /* ─── Job grid ─── */
-    .job-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 0.875rem;
     }
 
-    .job-card {
-      background: var(--card);
+    .site-card {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.125rem 1.25rem;
-      text-decoration: none;
-      color: inherit;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.375rem;
       display: flex;
       flex-direction: column;
-      gap: 0.625rem;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      gap: 1rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .job-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 4px 16px rgba(79,70,229,0.1);
-      transform: translateY(-2px);
+    .site-card:hover {
+      border-color: #c7d2fe;
+      box-shadow: 0 2px 12px rgba(67,56,202,0.07);
     }
 
-    .job-card-top {
+    .site-card-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .job-title {
-      font-size: 0.925rem;
-      font-weight: 600;
-      line-height: 1.45;
-      flex: 1;
-    }
-    .badge-source {
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 0.2rem 0.45rem;
-      border-radius: 4px;
-      background: var(--accent-light);
-      color: var(--accent);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .job-company {
-      font-size: 0.825rem;
-      color: var(--muted);
-    }
-
-    .job-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .job-footer {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: auto;
-    }
-    .job-keyword {
-      font-size: 0.72rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background: #f3f4f6;
-      color: #6b7280;
-    }
-    .job-deadline {
-      font-size: 0.72rem;
-      color: var(--danger);
-      font-weight: 600;
+      gap: 0.625rem;
     }
 
-    /* ─── Empty / Loading states ─── */
-    .state-box {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 4rem 2rem;
+    .site-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .site-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .site-desc {
+      font-size: 0.72rem;
       color: var(--muted);
+      margin-top: 0.1rem;
     }
-    .state-box h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
-    .state-box p { font-size: 0.85rem; line-height: 1.7; }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 640px) {
-      .quick-links-grid { grid-template-columns: repeat(2, 1fr); }
-      .job-grid { grid-template-columns: 1fr; }
-      .header-inner { flex-direction: column; align-items: flex-start; }
-      #last-updated { text-align: left; }
+    /* ─ Link buttons inside card ───────────────── */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .job-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.875rem;
+      border-radius: 8px;
+      background: var(--bg);
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.13s, color 0.13s;
+      border: 1px solid transparent;
+    }
+    .job-link:hover {
+      background: var(--accent-bg);
+      color: var(--accent);
+      border-color: #c7d2fe;
+    }
+    .job-link .link-arrow {
+      font-size: 0.75rem;
+      opacity: 0.4;
+    }
+    .job-link:hover .link-arrow { opacity: 1; }
+
+    /* hidden 상태 */
+    .job-link.hidden { display: none; }
+
+    /* ─ Responsive ───────────────────────────── */
+    @media (max-width: 600px) {
+      .site-grid { grid-template-columns: 1fr; }
+      .selector-panel { padding: 1rem; }
     }
   </style>
 </head>
@@ -263,167 +213,220 @@
 
 <header>
   <div class="header-inner">
-    <div>
-      <h1>채용공고 대시보드</h1>
-      <p class="sub">그래픽 · 브랜드 · 콘텐츠 디자이너&nbsp;&nbsp;|&nbsp;&nbsp;강남 · 서초 · 성남 · 용인 · 수원</p>
-    </div>
-    <div id="last-updated">데이터 로딩 중…</div>
+    <h1>채용공고 링크 모음</h1>
+    <p>직무와 지역을 선택하면 해당 채용사이트 검색 결과로 바로 이동합니다</p>
   </div>
 </header>
 
 <main>
 
-  <!-- ① 타 사이트 바로가기 -->
-  <div class="section-label">채용사이트 바로가기</div>
-  <div class="quick-links-grid" id="quick-links"></div>
-
-  <hr class="divider">
-
-  <!-- ② 워크넷 공고 -->
-  <div class="section-label">워크넷 채용공고</div>
-
-  <div class="filter-row">
-    <span class="filter-label">직무</span>
-    <button class="filter-btn active" data-type="job" data-value="all">전체</button>
-    <button class="filter-btn" data-type="job" data-value="그래픽">그래픽디자이너</button>
-    <button class="filter-btn" data-type="job" data-value="브랜드">브랜드디자이너</button>
-    <button class="filter-btn" data-type="job" data-value="콘텐츠">콘텐츠디자이너</button>
+  <!-- 필터 패널 -->
+  <div class="selector-panel">
+    <div class="selector-row">
+      <span class="selector-label">직무</span>
+      <button class="chip active" data-group="job" data-value="그래픽디자이너">그래픽디자이너</button>
+      <button class="chip" data-group="job" data-value="브랜드디자이너">브랜드디자이너</button>
+      <button class="chip" data-group="job" data-value="콘텐츠디자이너">콘텐츠디자이너</button>
+    </div>
+    <div class="selector-row">
+      <span class="selector-label">지역</span>
+      <button class="chip active" data-group="region" data-value="all">전체</button>
+      <button class="chip" data-group="region" data-value="강남구">강남구</button>
+      <button class="chip" data-group="region" data-value="서초구">서초구</button>
+      <button class="chip" data-group="region" data-value="성남시">성남시</button>
+      <button class="chip" data-group="region" data-value="기흥구">기흥구</button>
+      <button class="chip" data-group="region" data-value="수지구">수지구</button>
+      <button class="chip" data-group="region" data-value="수원시">수원시</button>
+    </div>
   </div>
 
-  <div class="filter-row">
-    <span class="filter-label">지역</span>
-    <button class="filter-btn active" data-type="region" data-value="all">전체</button>
-    <button class="filter-btn" data-type="region" data-value="강남">강남구</button>
-    <button class="filter-btn" data-type="region" data-value="서초">서초구</button>
-    <button class="filter-btn" data-type="region" data-value="성남">성남시</button>
-    <button class="filter-btn" data-type="region" data-value="용인">용인시</button>
-    <button class="filter-btn" data-type="region" data-value="수원">수원시</button>
-  </div>
-
-  <div class="results-meta" id="results-meta"></div>
-  <div class="job-grid" id="job-grid"></div>
+  <!-- 사이트 카드 그리드 -->
+  <div class="section-title">채용 사이트</div>
+  <div class="site-grid" id="site-grid"></div>
 
 </main>
 
 <script>
-  /* ── 타 사이트 바로가기 데이터 ── */
-  const QUICK_LINKS = [
-    { site: '잡코리아', query: '그래픽디자이너 강남/서초/성남', url: 'https://www.jobkorea.co.kr/Search/?stext=%EA%B7%B8%EB%9E%98%ED%94%BD%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88&local=I010127%7CI010128%7CI020290%7CI020310%7CI020320' },
-    { site: '잡코리아', query: '브랜드디자이너', url: 'https://www.jobkorea.co.kr/Search/?stext=%EB%B8%8C%EB%9E%9C%EB%93%9C%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88&local=I010127%7CI010128%7CI020290%7CI020310%7CI020320' },
-    { site: '사람인', query: '그래픽디자이너', url: 'https://www.saramin.co.kr/zf_user/search?searchword=%EA%B7%B8%EB%9E%98%ED%94%BD%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88&search_done=y' },
-    { site: '사람인', query: '브랜드/콘텐츠디자이너', url: 'https://www.saramin.co.kr/zf_user/search?searchword=%EB%B8%8C%EB%9E%9C%EB%93%9C+%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88&search_done=y' },
-    { site: '원티드', query: '비주얼/그래픽디자이너', url: 'https://www.wanted.co.kr/wdlist/518/862?country=kr&job_sort=job.latest_order&years=-1&locations=seoul.gyeonggi' },
-    { site: '원티드', query: '브랜드디자이너', url: 'https://www.wanted.co.kr/wdlist/518/669?country=kr&job_sort=job.latest_order&years=-1&locations=seoul.gyeonggi' },
-    { site: '리멤버', query: '그래픽디자이너', url: 'https://career.rememberapp.co.kr/job/list?keyword=%EA%B7%B8%EB%9E%98%ED%94%BD%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88' },
-    { site: '잡플래닛', query: '그래픽디자이너', url: 'https://www.jobplanet.co.kr/job/search?q=%EA%B7%B8%EB%9E%98%ED%94%BD+%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88' },
-    { site: '잡플래닛', query: '브랜드디자이너', url: 'https://www.jobplanet.co.kr/job/search?q=%EB%B8%8C%EB%9E%9C%EB%93%9C+%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88' },
+  /* ── 데이터 ───────────────────────────────────────────────── */
+
+  // 지역 키 맵핑 (URL 파라미터용)
+  const REGION_PARAMS = {
+    '강남구': { worknet: '101270', jobkorea: 'I010127', saramin: '101010' },
+    '서초구': { worknet: '101280', jobkorea: 'I010128', saramin: '101010' },
+    '성남시': { worknet: '102290', jobkorea: 'I020290', saramin: '102010' },
+    '기흥구': { worknet: '102313', jobkorea: 'I020313', saramin: '102060' },
+    '수지구': { worknet: '102315', jobkorea: 'I020315', saramin: '102060' },
+    '수원시': { worknet: '102090', jobkorea: 'I020310', saramin: '102010' },
+  };
+
+  // 채용 사이트 정의
+  const SITES = [
+    {
+      id: 'worknet',
+      name: '워크넷',
+      logoText: 'WN',
+      logoColor: '#1355C1',
+      desc: '고용노동부 공식 취업정보망',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        if (regionKey === 'all') {
+          return `https://www.work.go.kr/empInfo/empInfoSrch/list/listLogin.do?keywd=${kw}&careerTo=&careerFrom=&occupation=&region=&workType=&education=&certificate=&language=&keyword=${kw}&searchMode=1`;
+        }
+        const code = REGION_PARAMS[regionKey]?.worknet || '';
+        return `https://www.work.go.kr/empInfo/empInfoSrch/list/listLogin.do?keywd=${kw}&region=${code}&searchMode=1`;
+      },
+    },
+    {
+      id: 'jobkorea',
+      name: '잡코리아',
+      logoText: 'JK',
+      logoColor: '#FF6600',
+      desc: '국내 최대 채용정보 서비스',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        if (regionKey === 'all') {
+          return `https://www.jobkorea.co.kr/Search/?stext=${kw}&local=I010127%7CI010128%7CI020290%7CI020313%7CI020315%7CI020310`;
+        }
+        const code = REGION_PARAMS[regionKey]?.jobkorea || '';
+        return `https://www.jobkorea.co.kr/Search/?stext=${kw}&local=${code}`;
+      },
+    },
+    {
+      id: 'saramin',
+      name: '사람인',
+      logoText: 'SR',
+      logoColor: '#E31B23',
+      desc: '커리어 막일굽 취업포털',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        // 사람인은 지역 코드가 복잡해 키워드 + 지역명 방식 사용
+        if (regionKey === 'all') {
+          return `https://www.saramin.co.kr/zf_user/search?searchword=${kw}&search_done=y&loc_mcd=101000%2C102000`;
+        }
+        const regionName = encodeURIComponent(regionKey);
+        return `https://www.saramin.co.kr/zf_user/search?searchword=${kw}+${regionName}&search_done=y`;
+      },
+    },
+    {
+      id: 'wanted',
+      name: '원티드',
+      logoText: 'WD',
+      logoColor: '#3366FF',
+      desc: '스타트업 중심 IT/디자인 청년 청용',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        // 원티드는 지역 제한 없이 키워드 검색
+        return `https://www.wanted.co.kr/search?query=${kw}&country=kr&job_sort=job.latest_order`;
+      },
+    },
+    {
+      id: 'remember',
+      name: '리멤버',
+      logoText: 'RM',
+      logoColor: '#1A1A1A',
+      desc: '비즈니스 네트워크 기반 수시청용',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        return `https://career.rememberapp.co.kr/job/list?keyword=${kw}`;
+      },
+    },
+    {
+      id: 'jobplanet',
+      name: '잡플래닛',
+      logoText: 'JP',
+      logoColor: '#00C16E',
+      desc: '실제 회사 후기 기반 취업정보',
+      getUrl(keyword, regionKey) {
+        const kw = encodeURIComponent(keyword);
+        return `https://www.jobplanet.co.kr/job/search?q=${kw}`;
+      },
+    },
   ];
 
-  /* ── Quick links 렌더 ── */
-  const qlEl = document.getElementById('quick-links');
-  QUICK_LINKS.forEach(({ site, query, url }) => {
-    const a = document.createElement('a');
-    a.className = 'site-card';
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.innerHTML = `<span class="site-name">${site}</span><span class="site-query">${query}</span><span class="arrow">바로가기 →</span>`;
-    qlEl.appendChild(a);
-  });
-
-  /* ── 필터 상태 ── */
-  let allJobs = [];
-  let activeJob = 'all';
+  /* ── 상태 ──────────────────────────────────────────────── */
+  const JOBS = ['그래픽디자이너', '브랜드디자이너', '콘텐츠디자이너'];
+  let activeJob = '그래픽디자이너';
   let activeRegion = 'all';
 
-  function getFiltered() {
-    return allJobs.filter(job => {
-      const jMatch = activeJob === 'all' ||
-        (job.keyword || '').includes(activeJob) ||
-        (job.title || '').includes(activeJob);
-      const rMatch = activeRegion === 'all' ||
-        (job.region || '').includes(activeRegion) ||
-        (job.location || '').includes(activeRegion);
-      return jMatch && rMatch;
+  /* ── 최초 렌더 ─────────────────────────────────────────── */
+  const grid = document.getElementById('site-grid');
+
+  // 사이트 카드 생성
+  SITES.forEach(site => {
+    const card = document.createElement('div');
+    card.className = 'site-card';
+    card.dataset.siteId = site.id;
+
+    card.innerHTML = `
+      <div class="site-card-header">
+        <div class="site-logo" style="background:${site.logoColor}">${site.logoText}</div>
+        <div>
+          <div class="site-name">${site.name}</div>
+          <div class="site-desc">${site.desc}</div>
+        </div>
+      </div>
+      <div class="link-list" id="links-${site.id}"></div>
+    `;
+    grid.appendChild(card);
+  });
+
+  /* ── 링크 업데이트 ───────────────────────────────────────── */
+  function updateLinks() {
+    SITES.forEach(site => {
+      const container = document.getElementById(`links-${site.id}`);
+      container.innerHTML = '';
+
+      JOBS.forEach(job => {
+        // 선택된 직무일 때만 보이도로 (다른 직무 투명도 유지 대신 hidden 클래스)
+        const isActive = (job === activeJob);
+
+        const url = site.getUrl(job, activeRegion);
+        const regionLabel = activeRegion === 'all' ? '서울/경기' : activeRegion;
+        const label = `${job} · ${regionLabel}`;
+
+        const a = document.createElement('a');
+        a.className = 'job-link' + (isActive ? '' : ' hidden');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.dataset.job = job;
+        a.innerHTML = `<span>${label}</span><span class="link-arrow">→</span>`;
+        container.appendChild(a);
+      });
     });
   }
 
-  function esc(s) {
-    const d = document.createElement('div');
-    d.textContent = s || '';
-    return d.innerHTML;
-  }
+  /* ── 필터 뺄 이벤트 ──────────────────────────────────────── */
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const group = chip.dataset.group;
+      const value = chip.dataset.value;
 
-  function renderJobs() {
-    const list = getFiltered();
-    const grid = document.getElementById('job-grid');
-    const meta = document.getElementById('results-meta');
-    meta.textContent = `워크넷 공고 ${list.length}건`;
+      // active 클래스 토글
+      document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
 
-    if (!list.length) {
-      grid.innerHTML = `<div class="state-box"><h3>해당하는 공고가 없습니다</h3><p>필터를 변경하거나 위 바로가기 링크로 직접 검색해보세요.</p></div>`;
-      return;
-    }
-
-    grid.innerHTML = list.map(j => `
-      <a href="${esc(j.url)}" target="_blank" rel="noopener noreferrer" class="job-card">
-        <div class="job-card-top">
-          <div class="job-title">${esc(j.title)}</div>
-          <span class="badge-source">${esc(j.source || '워크넷')}</span>
-        </div>
-        <div class="job-company">${esc(j.company)}</div>
-        <div class="job-info">
-          <span>📍 ${esc(j.region || j.location)}</span>
-          ${j.salary ? `<span>💰 ${esc(j.salary)}</span>` : ''}
-          ${j.posted ? `<span>📅 ${esc(j.posted)}</span>` : ''}
-        </div>
-        <div class="job-footer">
-          ${j.keyword ? `<span class="job-keyword">${esc(j.keyword)}</span>` : '<span></span>'}
-          ${j.deadline ? `<span class="job-deadline">마감 ${esc(j.deadline)}</span>` : ''}
-        </div>
-      </a>
-    `).join('');
-  }
-
-  /* ── 필터 버튼 이벤트 ── */
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.dataset.type;
-      const value = btn.dataset.value;
-      document.querySelectorAll(`.filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      if (type === 'job') activeJob = value;
+      if (group === 'job') activeJob = value;
       else activeRegion = value;
-      renderJobs();
+
+      // 링크 URL 업데이트 + 보이기/숨기기 스위치
+      SITES.forEach(site => {
+        document.querySelectorAll(`#links-${site.id} .job-link`).forEach(a => {
+          const isActive = (a.dataset.job === activeJob);
+          a.classList.toggle('hidden', !isActive);
+          if (isActive) {
+            const url = site.getUrl(a.dataset.job, activeRegion);
+            const regionLabel = activeRegion === 'all' ? '서울/경기' : activeRegion;
+            a.href = url;
+            a.querySelector('span').textContent = `${a.dataset.job} · ${regionLabel}`;
+          }
+        });
+      });
     });
   });
 
-  /* ── 데이터 로드 ── */
-  fetch(`./data/jobs.json?t=${Date.now()}`)
-    .then(r => {
-      if (!r.ok) throw new Error('no data');
-      return r.json();
-    })
-    .then(data => {
-      allJobs = data.jobs || [];
-      const upd = document.getElementById('last-updated');
-      upd.textContent = data.updated_at ? `마지막 업데이트: ${data.updated_at} KST` : '';
-      renderJobs();
-    })
-    .catch(() => {
-      document.getElementById('last-updated').textContent = '워크넷 데이터 미설정 상태';
-      document.getElementById('results-meta').textContent = '';
-      document.getElementById('job-grid').innerHTML = `
-        <div class="state-box">
-          <h3>워크넷 API 설정이 필요합니다</h3>
-          <p>
-            워크넷 OpenAPI 키를 GitHub Secret에 등록하면<br>
-            매일 자동으로 공고가 수집됩니다.<br><br>
-            지금은 위 바로가기 링크를 통해 직접 확인해보세요.
-          </p>
-        </div>
-      `;
-    });
+  // 초기 렌더
+  updateLinks();
 </script>
 
 </body>
