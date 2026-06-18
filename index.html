@@ -231,6 +231,13 @@
   document.getElementById('today-date').textContent =
     `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')} (${days[today.getDay()]})`;
 
+  // 뺙여쓰기 키워드 → 리멤버 검색용 띄어쓰기 맵
+  const KEYWORD_SPACED = {
+    '그래픽디자이너': '그래픽 디자이너',
+    '브랜드디자이너': '브랜드 디자이너',
+    '콘텐츠디자이너': '콘텐츠 디자이너',
+  };
+
   const REGION_PARAMS = {
     '강남구': { jobkorea: 'I010127' },
     '서초구': { jobkorea: 'I010128' },
@@ -270,7 +277,9 @@
       id: 'remember', name: '리멤버', logoText: 'RM', logoColor: '#1A1A1A',
       desc: '비즈니스 네트워크 기반 수시청용',
       getUrl(k) {
-        return `https://career.rememberapp.co.kr/job/list?keyword=${encodeURIComponent(k)}`;
+        // 리멤버는 띄어쓰기 키워드로 검색해야 결과가 나옴
+        const kw = encodeURIComponent(KEYWORD_SPACED[k] || k);
+        return `https://career.rememberapp.co.kr/job/search?keyword=${kw}`;
       },
     },
     {
