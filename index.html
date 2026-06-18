@@ -39,27 +39,14 @@
       flex-wrap: wrap;
       gap: 0.75rem;
     }
-    header h1 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
-    }
-    header p {
-      font-size: 0.8rem;
-      opacity: 0.5;
-      line-height: 1.6;
-    }
+    header h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+    header p { font-size: 0.8rem; opacity: 0.5; line-height: 1.6; }
     .header-date { text-align: right; }
     .header-date .date-label { font-size: 0.68rem; opacity: 0.45; margin-bottom: 0.2rem; }
     .header-date .date-value { font-size: 0.85rem; font-weight: 600; opacity: 0.85; }
     .header-date .date-notice { font-size: 0.68rem; opacity: 0.4; margin-top: 0.2rem; }
 
-    main {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
-    }
+    main { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
 
     .selector-panel {
       background: var(--surface);
@@ -71,19 +58,10 @@
       flex-direction: column;
       gap: 1rem;
     }
-    .selector-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+    .selector-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
     .selector-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      min-width: 36px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted); min-width: 36px;
     }
     .chip {
       padding: 0.35rem 0.9rem;
@@ -98,81 +76,40 @@
       line-height: 1;
     }
     .chip:hover { border-color: var(--accent); color: var(--accent); }
-    .chip.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      font-weight: 600;
-    }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 
     .section-title {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.875rem;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.875rem;
     }
 
-    .site-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 0.875rem;
-    }
+    .site-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.875rem; }
     .site-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.375rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.375rem;
+      display: flex; flex-direction: column; gap: 1rem;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .site-card:hover {
-      border-color: #c7d2fe;
-      box-shadow: 0 2px 12px rgba(67,56,202,0.07);
-    }
-    .site-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-    }
+    .site-card:hover { border-color: #c7d2fe; box-shadow: 0 2px 12px rgba(67,56,202,0.07); }
+    .site-card-header { display: flex; align-items: center; gap: 0.625rem; }
     .site-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 800;
-      color: #fff;
-      flex-shrink: 0;
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; color: #fff; flex-shrink: 0;
     }
     .site-name { font-size: 0.9rem; font-weight: 700; }
     .site-desc { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
 
     .link-list { display: flex; flex-direction: column; gap: 0.375rem; }
     .job-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.55rem 0.875rem;
-      border-radius: 8px;
-      background: var(--bg);
-      text-decoration: none;
-      color: var(--primary);
-      font-size: 0.82rem;
-      font-weight: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.55rem 0.875rem; border-radius: 8px;
+      background: var(--bg); text-decoration: none; color: var(--primary);
+      font-size: 0.82rem; font-weight: 500;
       transition: background 0.13s, color 0.13s;
       border: 1px solid transparent;
     }
-    .job-link:hover {
-      background: var(--accent-bg);
-      color: var(--accent);
-      border-color: #c7d2fe;
-    }
+    .job-link:hover { background: var(--accent-bg); color: var(--accent); border-color: #c7d2fe; }
     .job-link .link-arrow { font-size: 0.75rem; opacity: 0.4; }
     .job-link:hover .link-arrow { opacity: 1; }
     .job-link.hidden { display: none; }
@@ -231,7 +168,7 @@
   document.getElementById('today-date').textContent =
     `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')} (${days[today.getDay()]})`;
 
-  // 뺙여쓰기 키워드 → 리멤버 검색용 띄어쓰기 맵
+  // 화면에는 빙어쓰기, 리멤버 URL에는 띄어쓰기 사용
   const KEYWORD_SPACED = {
     '그래픽디자이너': '그래픽 디자이너',
     '브랜드디자이너': '브랜드 디자이너',
@@ -277,9 +214,15 @@
       id: 'remember', name: '리멤버', logoText: 'RM', logoColor: '#1A1A1A',
       desc: '비즈니스 네트워크 기반 수시청용',
       getUrl(k) {
-        // 리멤버는 띄어쓰기 키워드로 검색해야 결과가 나옴
-        const kw = encodeURIComponent(KEYWORD_SPACED[k] || k);
-        return `https://career.rememberapp.co.kr/job/search?keyword=${kw}`;
+        const spaced = KEYWORD_SPACED[k] || k;
+        const searchParam = JSON.stringify({
+          includeAppliedJobPosting: false,
+          leaderPosition: false,
+          organizationType: 'all',
+          applicationType: 'all',
+          keywords: [spaced],
+        });
+        return `https://career.rememberapp.co.kr/job/postings?search=${encodeURIComponent(searchParam)}`;
       },
     },
     {
