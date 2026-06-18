@@ -168,7 +168,6 @@
   document.getElementById('today-date').textContent =
     `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')} (${days[today.getDay()]})`;
 
-  // 화면에는 빙어쓰기, 리멤버 URL에는 띄어쓰기 사용
   const KEYWORD_SPACED = {
     '그래픽디자이너': '그래픽 디자이너',
     '브랜드디자이너': '브랜드 디자이너',
@@ -229,7 +228,8 @@
       id: 'jobplanet', name: '잡플래닛', logoText: 'JP', logoColor: '#00C16E',
       desc: '실제 회사 후기 기반 취업정보',
       getUrl(k) {
-        return `https://www.jobplanet.co.kr/job/search?q=${encodeURIComponent(k)}&occupation_codes=605&sort=updated_at`;
+        const spaced = KEYWORD_SPACED[k] || k;
+        return `https://www.jobplanet.co.kr/search/job?query=${encodeURIComponent(spaced)}`;
       },
     },
   ];
